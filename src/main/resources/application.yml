@@ -1,1 +1,9 @@
-Apikey 2d8dc984-3272-4d69-9e99-eeb435ac709b
+server:
+  port: 8000
+
+api:
+  key: ------
+  url:
+    channel: https://napi.arvancloud.com/vod/2.0/channels/
+    audio: https://napi.arvancloud.com/vod/2.0/channels/
+    video: https://napi.arvancloud.com/vod/2.0/channels/
