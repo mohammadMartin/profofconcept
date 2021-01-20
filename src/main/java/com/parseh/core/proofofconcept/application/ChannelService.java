@@ -9,9 +9,10 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ChannelService {
@@ -28,26 +29,27 @@ public class ChannelService {
     @Value("${api.key}")
     private String API_KEY;
 
-    public List<ChannelResponseDTO> allUserChannels(String page, String size) {
+    public List<ChannelResponseDTO> allUserChannels(Integer page, Integer size) {
 
         MultiValueMap<String, String> request = new LinkedMultiValueMap<>();
         request.add("filter", "");
-        request.add("page", page);
-        request.add("per_page", size);
+        request.add("page", page.toString());
+        request.add("per_page", size.toString());
 
-        ResponseEntity<List<ChannelResponseDTO>> response = restTemplate.exchange(CHANNEL_URL,
+        ResponseEntity<Map> response = restTemplate.exchange(
+                CHANNEL_URL,
                 HttpMethod.GET,
                 new HttpEntity<>(request, requestHeaders()),
-                new ParameterizedTypeReference<List<ChannelResponseDTO>>() {
-                });
+                new ParameterizedTypeReference<Map>() {
+                }
+        );
 
         if (response == null || response.getBody() == null)
             throw new RuntimeException("fetch unSuccessFull");
 
-        return response.getBody();
+//        return response.getBody();
+        return new ArrayList<>();
     }
-
-
 
 
     private HttpHeaders requestHeaders() {

@@ -2,7 +2,6 @@ package com.parseh.core.proofofconcept.peresentation;
 
 import com.parseh.core.proofofconcept.application.ChannelService;
 import com.parseh.core.proofofconcept.application.dto.ChannelResponseDTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +20,11 @@ public class ChannelController {
     }
 
     @GetMapping(value = "{page}/{size}")
-    public List<ChannelResponseDTO> allUserChannels(@PathVariable String page, @PathVariable String size) {
+    public List<ChannelResponseDTO> allUserChannels(@PathVariable Integer page, @PathVariable Integer size) {
+
+        page = page == null ? 1 : page;
+        size = size == null ? 10 : size;
+
         return channelService.allUserChannels(page, size);
     }
 }
